@@ -34,10 +34,11 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
-        python-version: [3.7, 3.8, 3.9]
-        exclude:
-          - os: windows-latest
-            python-version: 3.8
+        # python-version: [3.7, 3.8, 3.9]
+        python-version: [3.9]
+        # exclude:
+        #   - os: windows-latest
+        #     python-version: 3.8
     timeout-minutes: 90
     defaults:
       run:
@@ -73,12 +74,12 @@ jobs:
           eval "$(conda shell.bash hook)"
           conda activate test-environment
           bokeh sampledata
-      - name: Install bokeh 3.0 and holoviews compatibility branch
+      - name: Install bokeh 3.0 compatibility packages
         run: |
           eval "$(conda shell.bash hook)"
           conda activate test-environment
-          # conda install "nodejs>16" "bokeh=3.0.0dev11" -c bokeh/label/dev -c conda-forge -y
           pip install "git+https://github.com/holoviz/holoviews.git@bokeh3.0"
+          pip install "git+https://github.com/bokeh/jupyter_bokeh.git"
       - name: doit env_capture
         run: |
           eval "$(conda shell.bash hook)"
@@ -130,12 +131,12 @@ jobs:
           cache: true
           playwright: true
         id: install
-      - name: Install bokeh 3.0 and holoviews compatibility branch
+      - name: Install bokeh 3.0 compatibility packages
         run: |
           eval "$(conda shell.bash hook)"
           conda activate test-environment
-          # conda install "nodejs>16" "bokeh=3.0.0dev11" -c bokeh/label/dev -c conda-forge -y
           pip install "git+https://github.com/holoviz/holoviews.git@bokeh3.0"
+          pip install "git+https://github.com/bokeh/jupyter_bokeh.git"
       - name: doit env_capture
         run: |
           eval "$(conda shell.bash hook)"
