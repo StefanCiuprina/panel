@@ -78,6 +78,7 @@ jobs:
         run: |
           eval "$(conda shell.bash hook)"
           conda activate test-environment
+          conda uninstall holoviews jupyter_bokeh --force -y
           pip install "git+https://github.com/holoviz/holoviews.git@bokeh3.0"
           pip install "git+https://github.com/bokeh/jupyter_bokeh.git"
       - name: doit env_capture
@@ -135,6 +136,7 @@ jobs:
         run: |
           eval "$(conda shell.bash hook)"
           conda activate test-environment
+          conda uninstall holoviews jupyter_bokeh --force -y
           pip install "git+https://github.com/holoviz/holoviews.git@bokeh3.0"
           pip install "git+https://github.com/bokeh/jupyter_bokeh.git"
       - name: doit env_capture
