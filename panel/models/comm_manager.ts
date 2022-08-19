@@ -104,7 +104,7 @@ export class CommManager extends Model {
     this._client_comm.send(message)
     for (const view of this.ns.shared_views.get(this.plot_id)) {
       if (view !== this)
-        view.document.apply_json_patch(patch, [], this.id)
+        view.document?.apply_json_patch(patch, [], this.id)
     }
   }
 
