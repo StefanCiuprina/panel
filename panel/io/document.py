@@ -3,6 +3,7 @@ from __future__ import annotations
 import dataclasses
 import datetime as dt
 import inspect
+import json
 import threading
 
 from contextlib import contextmanager
@@ -157,7 +158,9 @@ def unlocked() -> Iterator:
                 WebSocketHandler.write_message(socket, msg.header_json)
                 WebSocketHandler.write_message(socket, msg.metadata_json)
                 WebSocketHandler.write_message(socket, msg.content_json)
-                for header, payload in msg._buffers:
+                for buffer in msg._buffers:
+                    header = json.dumps(buffer.ref)
+                    payload = buffer.to_bytes()
                     WebSocketHandler.write_message(socket, header)
                     WebSocketHandler.write_message(socket, payload, binary=True)
         curdoc.callbacks._held_events = remaining_events
